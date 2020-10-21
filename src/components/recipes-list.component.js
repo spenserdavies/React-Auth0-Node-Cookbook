@@ -26,6 +26,7 @@ function RecipeList(props) {
   };
 
   const { user } = useAuth0();
+
   let sub = null;
   if (user) {
     sub = <p>{user.sub}</p>;
