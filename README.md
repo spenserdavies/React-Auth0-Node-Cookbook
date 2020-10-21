@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## to run locally
+
+cd into server
+`nodemon server`
+
+cd back to root
+`yarn start`
+
 ## Available Scripts
 
 In the project directory, you can run:
