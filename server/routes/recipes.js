@@ -13,6 +13,7 @@ router.route("/").post((req, res) => {
   const ingredients = req.body.ingredients;
   const directions = req.body.directions;
   const serves = req.body.serves;
+  const userId = req.body.userId;
 
   const newRecipe = new Recipe({
     title,
@@ -20,6 +21,7 @@ router.route("/").post((req, res) => {
     ingredients,
     directions,
     serves,
+    userId,
   });
 
   newRecipe
@@ -48,6 +50,7 @@ router.route("/:id").put((req, res) => {
       recipe.ingredients = req.body.ingredients;
       recipe.directions = req.body.directions;
       recipe.serves = req.body.serves;
+      recipe.userId = recipe.userId;
       recipe
         .save()
         .then(() => res.json("recipe updated"))
