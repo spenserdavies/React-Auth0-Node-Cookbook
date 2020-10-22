@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema(
   {
-    title: { type: String, required: true, unique: true },
-    description: { type: String, required: true },
-    ingredients: { type: Array, required: true },
-    directions: { type: Array, required: true },
+    title: { type: String, unique: true },
+    description: { type: String },
+    ingredients: { type: Array },
+    directions: { type: Array },
     serves: { type: Number, required: false },
-    userId: { type: String, required: true },
+    userId: { type: String },
+    favoritedBy: { type: Array },
   },
   {
     timestamps: true,

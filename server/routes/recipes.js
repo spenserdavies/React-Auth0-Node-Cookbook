@@ -14,6 +14,7 @@ router.route("/").post((req, res) => {
   const directions = req.body.directions;
   const serves = req.body.serves;
   const userId = req.body.userId;
+  const favoritedBy = req.body.favoritedBy;
 
   const newRecipe = new Recipe({
     title,
@@ -22,6 +23,7 @@ router.route("/").post((req, res) => {
     directions,
     serves,
     userId,
+    favoritedBy,
   });
 
   newRecipe
@@ -45,12 +47,13 @@ router.route("/:id").delete((req, res) => {
 router.route("/:id").put((req, res) => {
   Recipe.findById(req.params.id)
     .then((recipe) => {
-      recipe.title = req.body.title;
-      recipe.description = req.body.description;
-      recipe.ingredients = req.body.ingredients;
-      recipe.directions = req.body.directions;
-      recipe.serves = req.body.serves;
-      recipe.userId = recipe.userId;
+      // recipe.title = req.body.title;
+      // recipe.description = req.body.description;
+      // recipe.ingredients = req.body.ingredients;
+      // recipe.directions = req.body.directions;
+      // recipe.serves = req.body.serves;
+      // recipe.userId = recipe.userId;
+      recipe.favoritedBy = req.body.favoritedBy;
       recipe
         .save()
         .then(() => res.json("recipe updated"))
