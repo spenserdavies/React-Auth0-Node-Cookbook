@@ -9,7 +9,7 @@ function ViewRecipe(props) {
     const { id } = props.match.params;
     console.log(id);
     getRecipe(id);
-  }, []);
+  }, [props.match.params]);
 
   const getRecipe = (id) => {
     axios
@@ -24,7 +24,6 @@ function ViewRecipe(props) {
   console.log(recipe);
 
   const deleteRecipe = () => {
-    let userId = user.sub;
     axios
       .delete("http://localhost:5000/recipes/" + props.match.params.id)
       .then(() => {
@@ -51,6 +50,7 @@ function ViewRecipe(props) {
       <div className="row">
         <div className="col-6 mx-auto text-center">
           <h3>{recipe.title}</h3>
+          <h4>{recipe.description}</h4>
           <p>Servings: {recipe.serves}</p>
           <hr />
         </div>

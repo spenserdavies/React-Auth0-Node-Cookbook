@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -178,14 +178,12 @@ function CreateRecipe(props) {
             id="ingredients-list"
             style={{ maxHeight: "50vh", overflowY: "scroll" }}
           >
-            {ingredients.map(function (ingredient, index) {
+            {ingredients.map(function (ingredient) {
               return (
                 <div className="col-5 mx-3" key={ingredient.id}>
                   <div className="row my-4 d-flex justify-content-center align-items-center">
                     <div className="col-8">
-                      <li className="w-100">
-                        {ingredient.name} | {ingredient.id}
-                      </li>
+                      <li className="w-100">{ingredient.name}</li>
                     </div>
                     <div className="col-4 text-center">
                       <button

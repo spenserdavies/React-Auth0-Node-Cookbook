@@ -6,17 +6,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function RecipeList(props) {
   const [recipes, setRecipes] = useState([]);
-  const [recipeToFav, setRecipeToFav] = useState({
-    title: "",
-    description: "",
-    ingredients: [],
-    directions: [],
-    serves: 0,
-    userId: "",
-    favoritedBy: [],
-  });
 
   useEffect(() => {
+    ReactTooltip.rebuild();
     axios
       .get("http://localhost:5000/recipes")
       .then((res) => {
@@ -25,7 +17,7 @@ function RecipeList(props) {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [recipes]);
 
   const { user } = useAuth0();
   let sub;
@@ -35,10 +27,9 @@ function RecipeList(props) {
 
   let recipeToFavorite;
 
-  let subString = null;
-  if (user) {
-    subString = <p>{user.sub}</p>;
-  }
+  const removeFavoriteTooltip = () => {
+    // ReactTooltip.show();
+  };
 
   const addFavorite = (id) => {
     console.log(id);
@@ -71,6 +62,7 @@ function RecipeList(props) {
           });
       }
     }
+    ReactTooltip.rebuild();
   };
 
   const removeFavorite = (id) => {
@@ -106,34 +98,37 @@ function RecipeList(props) {
           });
       }
     }
+    ReactTooltip.rebuild();
   };
 
   return (
     <div className="container-fluid" style={{ minHeight: "50vh" }}>
-      {/* {subString} */}
       <div className="row w-100">
         <div className="col-12 col-lg-5 mx-auto text-center mb-3">
           <h3>Recipes</h3>
         </div>
       </div>
-      <div className="row mb-5">
+      <div className="row mb-5 d-flex justify-content-center">
         {recipes.map(function (recipe, index) {
-          let favIcon;
+          let removeIcon;
+          let addIcon;
           if (recipe.hasOwnProperty("favoritedBy")) {
             if (recipe.favoritedBy.length > 0) {
               if (recipe.favoritedBy.includes(sub)) {
-                favIcon = (
+                removeIcon = (
                   <h1
                     className="float-right text-warning"
                     onClick={() => removeFavorite(recipe._id)}
                     style={{ cursor: "pointer" }}
                     data-tip
+                    data-for="removeTip"
+                    onMouseOver={removeFavoriteTooltip}
                   >
                     *
                   </h1>
                 );
               } else {
-                favIcon = (
+                addIcon = (
                   <h1
                     className="float-right"
                     onClick={() => addFavorite(recipe._id)}
@@ -146,7 +141,7 @@ function RecipeList(props) {
                 );
               }
             } else {
-              favIcon = (
+              addIcon = (
                 <h1
                   className="float-right"
                   onClick={() => addFavorite(recipe._id)}
@@ -162,16 +157,19 @@ function RecipeList(props) {
 
           let url = `/view/${recipe._id}`;
           return (
-            <div className="card shadow text-dark mb-5 col-10 mx-auto col-lg-4 col-md-6">
+            <div
+              key={recipe._id}
+              className="card shadow text-dark mb-5 col-10 mx-5 col-lg-3 col-md-6"
+            >
               <div className="card-body text-center">
-                <ReactTooltip id="removeFavoriteTip" place="top" effect="solid">
+                {removeIcon}
+                {addIcon}
+                <ReactTooltip id="removeTip" place="top" effect="solid">
                   Remove From Favorites
                 </ReactTooltip>
                 <ReactTooltip id="addTip" place="top" effect="solid">
                   Add To Favorites
                 </ReactTooltip>
-
-                {favIcon}
                 <Link to={url} className="text-dark">
                   <h4 className="card-title">{recipe.title}</h4>
                   <p>
