@@ -89,17 +89,16 @@ function CreateRecipe(props) {
   const { user } = useAuth0();
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
-        {/* LEFT HALF */}
-        <div className="col-11 col-lg-5 mx-auto border-right border-secondary">
+        <div className="col col-lg-5 mb-3 mx-auto text-center border-bottom border-secondary">
+          <h2>New Recipe</h2>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
           <div className="row">
-            <div className="col col-lg-5 mb-3 mx-auto text-center border-bottom border-secondary">
-              <h2>New Recipe</h2>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-11 col-lg-6">
+            <div className="col-12 col-lg-5">
               <div className="form-group">
                 <label>Title</label>
                 <input
@@ -111,29 +110,23 @@ function CreateRecipe(props) {
                 />
               </div>
             </div>
-            <div className="col-11 col-lg-6">
-              <div className="row">
-                <span>Serves Up To:</span>
-              </div>
-              <div className="row mt-2 d-flex align-items-center">
+            <div className="col-12 col-lg-2">
+              <div className="form-group ">
+                <label>Servings: </label>
                 <input
                   type="text"
                   name="serves"
-                  className="form-control w-25 mr-3"
+                  className="form-control mr-3"
                   value={serves}
                   onChange={onChangeServes}
                 />
-                <span>People</span>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col-11 ml-3">
-              <div className="row">
-                <span className="text-left">Description</span>
-              </div>
-              <div className="row">
-                <textarea
+            <div className="col-12 col-lg-5">
+              <div className="form-group">
+                <label>Description</label>
+                <input
+                  type="text"
                   name="description"
                   className="form-control"
                   value={description}
@@ -142,8 +135,9 @@ function CreateRecipe(props) {
               </div>
             </div>
           </div>
-          <div className="row pt-3">
-            <div className="col-11">
+
+          <div className="row">
+            <div className="col-12 col-lg-6">
               <div className="form-group form-inline w-100">
                 <div className="row w-100 mb-2 ml-0">
                   <label>Ingredients</label>
@@ -158,7 +152,7 @@ function CreateRecipe(props) {
                   />
                   <div className="input-group-append">
                     <button
-                      className="btn btn-outline-secondary float-right mx-2"
+                      className="btn btn-outline-secondary "
                       onClick={onChangeIngredients}
                     >
                       Add
@@ -167,7 +161,37 @@ function CreateRecipe(props) {
                 </div>
               </div>
             </div>
+            <div className="col-12 col-lg-6">
+              <div className="form-group form-inline w-100">
+                <div className="row w-100 mb-2 ml-0">
+                  <label>Step {directions.length + 1}:</label>
+                </div>
+
+                <div className="input-group w-100">
+                  <input
+                    type="text"
+                    name="direction"
+                    className="form-control"
+                    value={newDirection.name}
+                    onChange={onChangeNewDirection}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={onChangeDirections}
+                    >
+                      Add
+                    </button>
+                  </div>
+                </div>
+                <br />
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-lg-6">
           <div className="row">
             <div className="col-12">
               <h4>Ingredients List:</h4>
@@ -199,33 +223,7 @@ function CreateRecipe(props) {
             })}
           </div>
         </div>
-
-        {/* RIGHT HALF */}
-        <div className="col-11 col-lg-7">
-          <div className="row">
-            <div className="col-12">
-              <div className="form-group form-inline w-100">
-                <div className="row w-100 mb-2 ml-0">
-                  <label>Add Directions</label>
-                </div>
-                <h4>{directions.length + 1}.</h4>
-                <input
-                  type="text"
-                  name="direction"
-                  className="form-control w-75 ml-2"
-                  value={newDirection.name}
-                  onChange={onChangeNewDirection}
-                />
-                <button
-                  className="btn btn-dark float-right mx-2"
-                  onClick={onChangeDirections}
-                >
-                  Next Step
-                </button>
-                <br />
-              </div>
-            </div>
-          </div>
+        <div className="col-12 col-lg-6">
           <div className="row">
             <div className="col-12">
               <h4>Directions:</h4>
@@ -233,7 +231,7 @@ function CreateRecipe(props) {
           </div>
           <div
             className="row"
-            style={{ maxHeight: "70vh", overflowY: "scroll" }}
+            style={{ maxHeight: "50vh", overflowY: "scroll" }}
           >
             {directions.map(function (direction, index) {
               return (
