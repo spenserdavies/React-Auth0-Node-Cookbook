@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function ViewRecipe(props) {
   const [activeRecipe, setActiveRecipe] = useState({});
@@ -45,10 +47,29 @@ function ViewRecipe(props) {
     }
   }
 
+  const generatePdf = () => {
+    const input = document.getElementById("document");
+    html2canvas(input).then((canvas) => {
+      var imgWidth = 200;
+      var pageHeight = 290;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      var position = 0;
+      var heightLeft = imgHeight;
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+      pdf.save(`${recipe.title}.pdf`);
+    });
+  };
+
   return (
-    <div className="container border p-3">
+    <div className="container border p-3" id="document">
+      <button className="btn btn-dark " onClick={generatePdf}>
+        Save PDF
+      </button>
       <div className="row">
-        <div className="col-6 mx-auto text-center">
+        <div className="col-12 mx-auto text-center">
           <h3>{recipe.title}</h3>
           <h4>{recipe.description}</h4>
           <p>Servings: {recipe.serves}</p>
