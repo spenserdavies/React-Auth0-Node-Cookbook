@@ -92,7 +92,7 @@ const Navbar = () => {
     createButton = (
       <li className="navbar-item">
         <Link to="/create" className="nav-link">
-          Make Recipe
+          New
         </Link>
       </li>
     );
@@ -129,23 +129,18 @@ const Navbar = () => {
         <Link to="/" className="navbar-brand">
           CookBook
         </Link>
-        <div className="collapse navbar-collapse">
+        <div className="collapse navbar-collapse" id="navbar">
           <ul className="navbar-nav mr-auto">
-            <li className="navbar-item">
-              <Link to="/" className="nav-link">
-                Recipes
-              </Link>
-            </li>
-            <li className="navbar-item">
-              <Link to="/conversion-chart" className="nav-link">
-                Conversion Chart
-              </Link>
-            </li>
             {createButton}
             {favoritesButton}
+            <li className="navbar-item">
+              <Link to="/conversion-chart" className="nav-link">
+                Conversions
+              </Link>
+            </li>
           </ul>
-          <button className="btn btn-light mx-2" onClick={handleShow}>
-            Convert Units
+          <button className="btn btn-light btn-sm mx-2" onClick={handleShow}>
+            Converter
           </button>
           <LoginButton />
           <LogoutButton />
