@@ -87,8 +87,6 @@ const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
   let createButton;
   let favoritesButton;
-  let expanded = false;
-  let expand;
 
   if (isAuthenticated) {
     createButton = (
@@ -136,6 +134,11 @@ const Navbar = () => {
             <li className="navbar-item">
               <Link to="/" className="nav-link">
                 Recipes
+              </Link>
+            </li>
+            <li className="navbar-item">
+              <Link to="/conversion-chart" className="nav-link">
+                Conversion Chart
               </Link>
             </li>
             {createButton}

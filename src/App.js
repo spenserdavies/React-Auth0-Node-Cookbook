@@ -8,6 +8,7 @@ import CreateRecipe from "./components/create-recipe.component";
 import ViewRecipe from "./components/view-recipe.component";
 import ViewFavorites from "./components/view-favorites.component";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ConversionChart from "./components/conversion-chart.component";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/create" component={CreateRecipe} />
         <Route path="/view/:id" component={ViewRecipe} />
         <Route path="/favorites/:userSub" component={ViewFavorites} />
+        <Route path="/conversion-chart" component={ConversionChart} />
       </div>
     </Router>
   );

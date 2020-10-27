@@ -9,7 +9,7 @@ function ViewRecipe(props) {
 
   useEffect(() => {
     const { id } = props.match.params;
-    console.log(id);
+
     getRecipe(id);
   }, [props.match.params]);
 
@@ -23,7 +23,6 @@ function ViewRecipe(props) {
   };
 
   let recipe = activeRecipe;
-  console.log(recipe);
 
   const deleteRecipe = () => {
     axios
@@ -51,13 +50,10 @@ function ViewRecipe(props) {
     const input = document.getElementById("document");
     html2canvas(input).then((canvas) => {
       var imgWidth = 200;
-      var pageHeight = 290;
       var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
       var position = 0;
-      var heightLeft = imgHeight;
       pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
       pdf.save(`${recipe.title}.pdf`);
     });
@@ -83,8 +79,12 @@ function ViewRecipe(props) {
             {recipe.ingredients ? (
               recipe.ingredients.map(function (ingredient, index) {
                 return (
-                  <div className="col-6 my-2 text-left" key={ingredient.id}>
-                    <li key={ingredient.id}>{ingredient.name}</li>
+                  <div
+                    className="col-6 col-lg-4 my-2 text-left form-inline"
+                    key={ingredient.id}
+                  >
+                    <input type="checkbox" />
+                    <label className="ml-1">{ingredient.name}</label>
                   </div>
                 );
               })
@@ -98,8 +98,11 @@ function ViewRecipe(props) {
             {recipe.directions ? (
               recipe.directions.map(function (direction, index) {
                 return (
-                  <div className="col-12 m-2" key={direction.id}>
-                    {index + 1}. {direction.name}
+                  <div className="col-12 m-2 form-inline" key={direction.id}>
+                    <input type="checkbox" />
+                    <label className="ml-1">
+                      {index + 1}. {direction.name}
+                    </label>
                   </div>
                 );
               })
